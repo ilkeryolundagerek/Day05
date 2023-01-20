@@ -13,13 +13,9 @@ namespace Services
         public static void AddBaseServices(this IServiceCollection services)
         {
             services.AddDbContext<CRMContext>(options => options.UseSqlServer(@"Server=.;Database=CRM;User Id=sa;Password=1;"));
-        }
-
-        public static void AddEntityServices(this IServiceCollection services)
-        {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IPersonService, PersonService>();
-            services.AddTransient<IDepartmentService, DepartmentService>();
+            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
         }
     }
 }

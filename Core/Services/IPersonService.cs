@@ -11,6 +11,6 @@ namespace Core.Services
     public interface IPersonService
     {
         Task<IEnumerable<PersonListItemDTO>> GetPeopleAsync();
-        Task<IEnumerable<PersonDetailDTO>> GetPersonDetailAsync(int id);
+        Task<PersonDetailDTO?> GetPersonDetailAsync(int id);
     }
 }

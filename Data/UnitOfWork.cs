@@ -7,18 +7,18 @@ namespace Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext context;
+        private readonly CRMContext context;
         private IPersonRepository people;
         private IDepartmentRepository departments;
 
-        public UnitOfWork(DbContext _context)
+        public UnitOfWork(CRMContext _context)
         {
             context = _context;
         }
 
-        public IPersonRepository People => people = people ?? new PersonRepository();
+        public IPersonRepository People => people = people ?? new PersonRepository(context);
 
-        public IDepartmentRepository Departments => departments = departments ?? new DepartmentRepository();
+        public IDepartmentRepository Departments => departments = departments ?? new DepartmentRepository(context);
 
         public void Commit()
         {

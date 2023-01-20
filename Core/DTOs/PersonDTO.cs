@@ -13,7 +13,7 @@ namespace Core.DTOs
         public string Middlename { get; set; }
         public string Lastname { get; set; }
         public string Email { get; set; }
-        public int DepartmantId { get; set; }
+        public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
     }
 
@@ -29,6 +29,7 @@ namespace Core.DTOs
         public string City { get; set; }
         public string PersonType { get; set; }
         public int DepartmentId { get; set; }
-        public DepartmentDTO DepartmentDTO { get; set; }
+        public string DepartmentName { get; set; }
+        public string DepartmentDescription { get; set; }
     }
 }
