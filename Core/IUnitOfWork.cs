@@ -12,6 +12,7 @@ namespace Core
         //Interface yapsıı abstract (soyut) olduğundan sadece get metodu bulundurur.
         IPersonRepository People { get; }
         IDepartmentRepository Departments { get; }
+        IItemRepository Items{ get; }
         void Commit();
         Task CommitAsync();
     }

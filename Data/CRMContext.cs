@@ -21,11 +21,13 @@ namespace Data
 
         public DbSet<Person> People { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemConfiguration());
         }
 
         private static DbContextOptions GetOptions()

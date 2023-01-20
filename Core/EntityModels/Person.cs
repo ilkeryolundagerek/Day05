@@ -19,5 +19,11 @@ namespace Core.EntityModels
         public string PersonType { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
+        public ICollection<Item> Items { get; set; }
+
+        public Person()
+        {
+            Items = new HashSet<Item>();
+        }
     }
 }

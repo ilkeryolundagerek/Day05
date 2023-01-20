@@ -22,6 +22,7 @@ namespace Data.Configurations
 
             builder
                 .Property(x => x.Middlename)
+                .IsRequired(false)
                 .HasMaxLength(25);
 
             builder

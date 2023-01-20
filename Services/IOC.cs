@@ -16,6 +16,7 @@ namespace Services
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IItemService, ItemService>();
         }
     }
 }
