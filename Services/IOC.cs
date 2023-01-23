@@ -12,7 +12,7 @@ namespace Services
     {
         public static void AddBaseServices(this IServiceCollection services)
         {
-            services.AddDbContext<CRMContext>(options => options.UseSqlServer(@"Server=.;Database=CRM;User Id=sa;Password=1;"));
+            services.AddDbContext<CRMContext>(options => options.UseSqlServer(@"Server=.;Database=CRM;User Id=sa;Password=1;MultipleActiveResultSets=true;"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IDepartmentService, DepartmentService>();

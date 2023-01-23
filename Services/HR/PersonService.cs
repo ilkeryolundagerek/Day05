@@ -18,6 +18,43 @@ namespace Services.HR
             uow = unitOfWork;
         }
 
+        public void Add(PersonDetailDTO p)
+        {
+            //if (p.Id == 0)
+            //{
+            var entity = new Person
+            {
+                Firstname = p.Firstname,
+                Middlename = p.Middlename,
+                Lastname = p.Lastname,
+                Phone = p.Phone,
+                Address = p.Address,
+                City = p.City,
+                DepartmentId = p.DepartmentId,
+                Email = p.Email,
+                PersonType = p.PersonType
+            };
+            uow.People.CreateOne(entity);
+            //}
+            //else
+            //{
+            //    //Güncelleme her zaman data kaybıdır, bu riske girmeyebilirsiniz.
+            //    await Update(p);
+            //}
+            uow.Commit();
+        }
+
+        public IEnumerable<DepartmentDTO> GetDepartments()
+        {
+            return from d in uow.Departments.ReadMany()
+                   select new DepartmentDTO
+                   {
+                       Id = d.Id,
+                       Name = d.Name,
+                       Description = d.Description
+                   };
+        }
+
         public async Task<IEnumerable<PersonListItemDTO>> GetPeopleAsync()
         {
             return from p in await uow.People.ReadManyAsync()
@@ -31,6 +68,26 @@ namespace Services.HR
                        DepartmentId = p.DepartmentId,
                        DepartmentName = p.Department.Name
                    };
+        }
+
+        public PersonDetailDTO? GetPersonDetail(int id)
+        {
+            var p = uow.People.ReadOne(id);
+            return p != null ? new PersonDetailDTO
+            {
+                Id = p.Id,
+                Firstname = p.Firstname,
+                Middlename = p.Middlename,
+                Lastname = p.Lastname,
+                Email = p.Email,
+                DepartmentId = p.DepartmentId,
+                DepartmentName = p.Department.Name,
+                DepartmentDescription = p.Department.Description,
+                Address = p.Address,
+                City = p.City,
+                PersonType = p.PersonType,
+                Phone = p.Phone
+            } : null;
         }
 
         public async Task<PersonDetailDTO?> GetPersonDetailAsync(int id)
@@ -51,6 +108,29 @@ namespace Services.HR
                 PersonType = p.PersonType,
                 Phone = p.Phone
             } : null;
+        }
+
+        public void Update(PersonDetailDTO p)
+        {
+            var entity = uow.People.ReadOne(p.Id);
+            if (entity != null)
+            {
+                entity.Firstname = p.Firstname;
+                entity.Middlename = p.Middlename;
+                entity.Lastname = p.Lastname;
+                entity.Phone = p.Phone;
+                entity.Address = p.Address;
+                entity.City = p.City;
+                entity.DepartmentId = p.DepartmentId;
+                entity.Email = p.Email;
+                entity.PersonType = p.PersonType;
+                uow.People.Update(entity);
+                uow.Commit();
+            }
+            else
+            {
+                Add(p);
+            }
         }
     }
 }

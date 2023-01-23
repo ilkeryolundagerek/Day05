@@ -22,9 +22,19 @@ namespace Data.Repositories
             return predicate != null ? _set.Include(d => d.Department).Where(predicate) : _set.Include(d => d.Department);
         }
 
+        public override IEnumerable<Person> ReadMany(Expression<Func<Person, bool>>? predicate = null)
+        {
+            return predicate != null ? _set.Include(d => d.Department).Where(predicate) : _set.Include(d => d.Department);
+        }
+
         public override async Task<Person?> ReadOneAsync(object entityKey)
         {
             return await _set.Include(d => d.Department).FirstOrDefaultAsync(x => x.Id == (int)entityKey);
+        }
+
+        public override Person? ReadOne(object entityKey)
+        {
+            return _set.Include(d => d.Department).FirstOrDefault(x => x.Id == (int)entityKey);
         }
 
         public async Task<IEnumerable<Person>> GetAllPeopleWithDepartmentAsync()

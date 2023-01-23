@@ -12,5 +12,9 @@ namespace Core.Services
     {
         Task<IEnumerable<PersonListItemDTO>> GetPeopleAsync();
         Task<PersonDetailDTO?> GetPersonDetailAsync(int id);
+        PersonDetailDTO? GetPersonDetail(int id);
+        IEnumerable<DepartmentDTO> GetDepartments();
+        void Update(PersonDetailDTO person);
+        void Add(PersonDetailDTO person);
     }
 }
