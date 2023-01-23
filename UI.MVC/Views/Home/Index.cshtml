@@ -1,8 +1,25 @@
-﻿@{
+﻿@*Dependency Injection For View*@
+
+@*Configuration Injection*@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@*Service Injections*@
+@using Core.Services;
+@inject IPersonService Service
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">@Configuration["Constants:Title"]</h1>
+    <h5>@Configuration["Constants:SubTitle"]</h5>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var item in Service.GetDepartments())
+    {
+        <p>@item.Id: @item.Name</p>
+    }
+    @Html.DropDownList("Departments",Service.GetDepartments().Select(d => new SelectListItem() { Text=d.Name, Value=d.Id.ToString() }))
+    <select asp-items="Service.GetDepartments().Select(d => new SelectListItem() { Text=d.Name, Value=d.Id.ToString() })"></select>
 </div>
