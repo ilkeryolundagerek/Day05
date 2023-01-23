@@ -70,6 +70,21 @@ namespace Services.HR
                    };
         }
 
+        public IEnumerable<PersonListItemDTO> GetPeople()
+        {
+            return from p in uow.People.ReadMany()
+                   select new PersonListItemDTO
+                   {
+                       Id = p.Id,
+                       Firstname = p.Firstname,
+                       Middlename = p.Middlename,
+                       Lastname = p.Lastname,
+                       Email = p.Email,
+                       DepartmentId = p.DepartmentId,
+                       DepartmentName = p.Department.Name
+                   };
+        }
+
         public PersonDetailDTO? GetPersonDetail(int id)
         {
             var p = uow.People.ReadOne(id);

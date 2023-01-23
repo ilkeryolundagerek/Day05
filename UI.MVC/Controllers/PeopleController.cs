@@ -2,6 +2,7 @@
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using UI.MVC.Models;
 
 namespace UI.MVC.Controllers
 {
@@ -13,15 +14,20 @@ namespace UI.MVC.Controllers
             _service = service;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1, int size = 10)
         {
-            return View(await _service.GetPeopleAsync());
+            return View(new PeopleIndexViewModel(_service, page, size));
+        }
+
+        public PeopleIndexViewModel Json(int page = 1, int size = 10)
+        {
+            return new PeopleIndexViewModel(_service, page, size);
         }
 
         public IActionResult Create()
         {
             ViewData["Departments"] = new SelectList(_service.GetDepartments(), "Id", "Name");
-            return View();
+            return View(new PersonFormViewModel(_service,"Create"));
         }
 
         [HttpPost]
@@ -36,7 +42,7 @@ namespace UI.MVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.Departments = new SelectList(_service.GetDepartments(), "Id", "Name", model.DepartmentId);
-            return View(model);
+            return View(new PersonFormViewModel(_service, "Create",person:model));
         }
 
         public IActionResult Edit(int id)

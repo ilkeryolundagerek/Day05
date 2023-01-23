@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="UtilitiesCore">
+      <HintPath>..\..\..\..\Desktop\Utilities\UtilitiesCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
