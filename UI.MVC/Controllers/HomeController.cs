@@ -18,9 +18,9 @@ namespace UI.MVC.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public int Privacy(int id)
         {
-            return View();
+            return 10 / id;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
