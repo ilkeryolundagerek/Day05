@@ -8,12 +8,17 @@
 @using Core.Services;
 @inject IPersonService Service
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">@Configuration["Constants:Title"]</h1>
+    <h1>@localizer["hello"]</h1>
+    <h1>@ViewBag.Bye</h1>
+    <h2 class="display-4">@Configuration["Constants:Title"]</h2>
     <h5>@Configuration["Constants:SubTitle"]</h5>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     @foreach (var item in Service.GetDepartments())
